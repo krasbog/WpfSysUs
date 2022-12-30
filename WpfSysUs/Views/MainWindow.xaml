@@ -1,0 +1,101 @@
+﻿<Window x:Class="WpfSysUs.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:local="clr-namespace:WpfSysUs.Views"
+        
+        mc:Ignorable="d"
+        xmlns:views="clr-namespace:WpfSysUs.Views"
+        xmlns:viewModels="clr-namespace:WpfSysUs.ViewModels"
+        
+        Title="MainWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance viewModels:SystemUserPresenter}">
+
+    
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <WrapPanel  >
+                <Label Content ="Поиск">
+                    
+                </Label>
+                <TextBox  Text="{Binding SearchCriteria, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Width="120"/>
+            <Button Content="Отчет" Width="143" Command="{Binding ShowWindowReportCommand}"
+                    CommandParameter="{x:Type local:WindowReport}"
+                    />
+            
+
+
+        </WrapPanel>
+           
+
+            <DataGrid ItemsSource="{Binding SystemUsersView, Mode=OneWay}" AutoGenerateColumns="False"
+                      Grid.Row="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Пользователь" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Организация" Binding="{Binding Organization}"/>
+                <DataGridTextColumn Header="IP адрес" Binding="{Binding IP}" SortMemberPath="longIP"/>
+                <DataGridTextColumn Header="Уникальный идентификатор сессии" Binding="{Binding SessionID}"/>
+                <DataGridTextColumn Header="Дата и время входа в систему" Binding="{Binding DateTimeLog,
+                    StringFormat=dd.MM.yyyy HH:mm:ss}"/>
+                <DataGridTextColumn Header="Дата и время выхода из системы" Binding="{Binding DateTimeLogOut,
+                    StringFormat=dd.MM.yyyy HH:mm:ss}"/>
+                <DataGridTextColumn Header="Код завершения сессии" Binding="{Binding TerminationCode}"/>
+                
+                
+                    
+               
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="0" Background="BlanchedAlmond" Padding="10">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="12" Text="Порядковый номер: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding ID}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="12" Text="Пользователь: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding Name}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="12" Text="Организация: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding Organization}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="12" Text="IP адрес: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding IP}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="12" Text="Уникальный идентификатор сессии: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding SessionID}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="12" Text="Дата и время входа в систему: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding DateTimeLog, StringFormat=dd.MM.yyyy HH:mm:ss}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="12" Text="Дата и время выхода из системы: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding DateTimeLogOut, StringFormat=dd.MM.yyyy HH:mm:ss}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="12" Text="Код завершения сессии: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding TerminationCode}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+
+        </DataGrid>
+          
+
+        
+    </Grid>
+</Window>
